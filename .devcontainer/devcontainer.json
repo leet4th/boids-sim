@@ -1,0 +1,27 @@
+{
+    "name": "boids-sim",
+    "build": {
+        // Sets the run context to one level up instead of the .devcontainer folder.
+        "context": "..",
+        // Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
+        "dockerfile": "../Dockerfile"
+    },
+    "runArgs": ["--privileged", "--runtime=nvidia", "--gpus", "all", "--cap-add=SYS_PTRACE"],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cpptools-extension-pack",
+                "mutantdino.resourcemonitor"
+            ]
+        }
+    },
+    "containerEnv": {
+        "LANG": "C.UTF-8",
+        "DISPLAY": "unix:0"
+    },
+    "mounts": [
+        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+      ],
+    "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}"
+}
