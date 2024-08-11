@@ -1,5 +1,5 @@
-FROM ubuntu:22.04 as base
-# FROM nvidia/cuda:11.8.0-runtime-ubuntu22.04 as base
+FROM ubuntu:22.04 AS base
+# FROM nvidia/cuda:11.8.0-runtime-ubuntu22.04 AS base
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -21,20 +21,22 @@ RUN groupadd --gid $USER_GID $USERNAME \
 
 WORKDIR /home/${USERNAME}
 
-
 # install required packages
 RUN apt-get update && apt-get install -y \
     git \
     build-essential \
     curl \
     wget \
+    xorg-dev \
+    libx11-dev \
+    freeglut3-dev \
+    libudev-dev \
     python3 \
     python3-pip \
     python3-dev \
     python3-venv
 
-
-# install additional packages
+# install additional tools
 RUN apt-get update && apt-get install -y \
     fzf \
     htop \
@@ -65,4 +67,4 @@ RUN chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}
 # Set the default user
 USER $USERNAME
 
-CMD /bin/bash
+CMD ["/bin/bash"]

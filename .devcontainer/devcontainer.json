@@ -6,7 +6,8 @@
         // Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
         "dockerfile": "../Dockerfile"
     },
-    "runArgs": ["--privileged", "--runtime=nvidia", "--gpus", "all", "--cap-add=SYS_PTRACE"],
+    // "runArgs": ["--privileged", "--runtme=nvidia", "--gpus", "all", "--cap-add=SYS_PTRACE"],
+    "runArgs": ["--privileged", "--cap-add=SYS_PTRACE"],
     "customizations": {
         "vscode": {
             "extensions": [
@@ -18,7 +19,7 @@
     },
     "containerEnv": {
         "LANG": "C.UTF-8",
-        "DISPLAY": "unix:0"
+        "DISPLAY": "${localEnv:DISPLAY}"
     },
     "mounts": [
         "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
