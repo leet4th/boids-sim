@@ -4,7 +4,7 @@ FROM ubuntu:22.04 as base
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Setup non-root user
-ARG USERNAME=lee
+ARG USERNAME=user
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
@@ -42,6 +42,8 @@ RUN apt-get update && apt-get install -y \
     parallel \
     dos2unix \
     cmake \
+    clang-format \
+    cppcheck \
     strace \
     valgrind \
     bsdmainutils\

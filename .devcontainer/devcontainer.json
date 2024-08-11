@@ -21,7 +21,7 @@
         "DISPLAY": "unix:0"
     },
     "mounts": [
-        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
       ],
     "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}"
 }
