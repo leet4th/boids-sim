@@ -49,5 +49,5 @@ endif()
 FetchContent_MakeAvailable(eigen fmtlib)
 
 add_subdirectory(apps)
-add_subdirectory(greeter)
+add_subdirectory(boids)
 # add_subdirectory(tests)

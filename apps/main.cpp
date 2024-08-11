@@ -1,13 +1,13 @@
 #include <Eigen/Dense>
-#include <greeter.hpp>
+#include <boids.hpp>
 #include <iostream>
 #include <string>
 
 int main(int argc, char *argv[]) {
     // using own lib
     std::string name{"teddy"};
-    greeter::Greeter greeter(name);
-    std::cout << greeter.greet(greeter::LanguageCode::EN) << std::endl;
+    boids::Greeter greeter(name);
+    std::cout << greeter.greet(boids::LanguageCode::EN) << std::endl;
 
     // using eigen
     Eigen::Matrix2d A;

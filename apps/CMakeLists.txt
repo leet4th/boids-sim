@@ -3,4 +3,4 @@ file(GLOB SRC "main.cpp")
 
 add_executable(boids-sim ${SRC})
 
-target_link_libraries(boids-sim PRIVATE greeter eigen)
+target_link_libraries(boids-sim PRIVATE boids eigen)

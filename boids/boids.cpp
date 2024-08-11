@@ -1,8 +1,8 @@
-#include "greeter.hpp"
+#include "boids.hpp"
 
 #include <fmt/format.h>
 
-using namespace greeter;
+using namespace boids;
 
 Greeter::Greeter(std::string _name) : name(std::move(_name)) {}
 

@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace greeter {
+namespace boids {
 
 /**  Language codes to be used with the Greeter class */
 enum class LanguageCode { EN, DE, ES, FR };
@@ -28,4 +28,4 @@ class Greeter {
     std::string greet(LanguageCode lang = LanguageCode::EN) const;
 };
 
-}  // namespace greeter
+}  // namespace boids
