@@ -8,4 +8,4 @@ target_link_libraries(boids-sim PRIVATE boids eigen)
 file(GLOB src_demo "demo.cpp")
 
 add_executable(demo ${src_demo})
-target_link_libraries(demo PRIVATE ImGui-SFML::ImGui-SFML)
+target_link_libraries(demo PRIVATE ImGui-SFML::ImGui-SFML eigen fmt)
