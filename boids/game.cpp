@@ -6,7 +6,8 @@ Game::Game(const GameConfig& in)
     : config(in),
       window(sf::VideoMode(config.x_range, config.y_range), config.name.data()),
       manager(config.num_boids) {
-    window.setFramerateLimit(config.frame_limit);
+    // window.setFramerateLimit(config.frame_limit);
+    window.setVerticalSyncEnabled(true);
 }
 
 auto Game::run() -> void {
@@ -17,7 +18,10 @@ auto Game::run() -> void {
     clock.restart();
     while (window.isOpen()) {
         deltaTime = clock.restart();
-        fps = 1e6f / deltaTime.asMicroseconds();
+
+        int n = 60 ;
+        float  alpha = 2.0f / (n + 1);
+        fps = alpha * 1000000 / deltaTime.asMicroseconds() + (1.0f-alpha)* fps;
         step();
     }
 
@@ -63,7 +67,7 @@ auto Game::render() -> void {
     ImGui::Text("Number of boids: %s",
                 std::to_string(config.num_boids).c_str());
     ImGui::SeparatorText("Diagnostics");
-    ImGui::Text("FPS: %s", std::to_string(static_cast<int>(fps)).c_str());
+    ImGui::Text("FPS: %s", std::to_string(fps).c_str());
     ImGui::End();
 
     // ImGui::ShowDemoWindow();

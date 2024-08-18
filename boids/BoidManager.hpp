@@ -19,6 +19,16 @@ namespace BoidSim {
 
 auto wrap(float val, float max_val) -> float;
 
+struct BoidParams {
+    float avoid_dist;
+    float avoid_gain;
+    float sight_dist;
+    float align_gain;
+    float cohesion_gain;
+    bool show_avoid;
+    bool show_sight;
+};
+
 class BoidManager {
    public:
     BoidManager(size_t num_boids);
@@ -40,6 +50,7 @@ class BoidManager {
 
     std::vector<Eigen::Vector2f> all_pos;
     std::vector<Eigen::Vector2f> all_vel;
+    std::vector<BoidParams> all_params;
 };
 
 }  // namespace BoidSim

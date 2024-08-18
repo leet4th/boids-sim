@@ -46,7 +46,7 @@ class Game {
 
     sf::Clock clock{};
     sf::Time deltaTime{};
-    float fps{};
+    int fps{};
 
     /// @brief Init window and game state
     /// @return
