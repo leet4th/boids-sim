@@ -1,23 +1,17 @@
-#include <Eigen/Dense>
-#include <boids.hpp>
-#include <iostream>
-#include <string>
+
+#include <game.hpp>
+
+using BoidSim::Game;
+using BoidSim::GameConfig;
 
 int main(int argc, char *argv[]) {
-    // using own lib
-    std::string name{"teddy"};
-    boids::Greeter greeter(name);
-    std::cout << greeter.greet(boids::LanguageCode::EN) << std::endl;
+    Game game{GameConfig{.name = "boids",
+                         .x_range = 1280,
+                         .y_range = 720,
+                         .frame_limit = 60,
+                         .num_boids = 50}};
 
-    // using eigen
-    Eigen::Matrix2d A;
-    A << 1, 2, 3, 4;
-
-    Eigen::Matrix2d B;
-    B << 5, 6, 7, 8;
-
-    Eigen::Matrix2d C = A + B;
-    std::cout << "Matrix A + B:\n" << C << "\n\n";
+    game.run();
 
     return 0;
 }

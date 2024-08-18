@@ -2,7 +2,7 @@
 file(GLOB src_boids "main.cpp")
 
 add_executable(boids-sim ${src_boids})
-target_link_libraries(boids-sim PRIVATE boids eigen)
+target_link_libraries(boids-sim PRIVATE boids ImGui-SFML::ImGui-SFML eigen fmt)
 
 
 file(GLOB src_demo "demo.cpp")

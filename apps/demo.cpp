@@ -68,7 +68,7 @@ int main() {
     initBoids(1000);
 
     float deltaTime = 0.0;
-    sf::Clock deltaClock;
+    sf::Clock clock;
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -79,13 +79,13 @@ int main() {
             }
         }
 
-        deltaTime = deltaClock.getElapsedTime().asSeconds();
+        deltaTime = clock.getElapsedTime().asSeconds();
         float fps = 1.0 / deltaTime;
         fmt::print("fps = {:0.3f}\n", fps);
 
         // must create all widgets between ImGui::SFML::Update() and
         // ImGui::Render().
-        ImGui::SFML::Update(window, deltaClock.restart());
+        ImGui::SFML::Update(window, clock.restart());
 
         // update boids
         updateBoids(deltaTime);
@@ -97,9 +97,9 @@ int main() {
         renderBoids(window);
 
         // render a control pannel
-        // ImGui::Begin("Hello, world!");
-        // ImGui::Button("Look at this pretty button");
-        // ImGui::End();
+        ImGui::Begin("Hello, world!");
+        ImGui::Button("Look at this pretty button");
+        ImGui::End();
 
         ImGui::SFML::Render(window);
         window.display();

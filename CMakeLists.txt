@@ -12,9 +12,23 @@ project(
     LANGUAGES CXX C)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+# set_property(GLOBAL CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
 include(cmake/PreventInSourceBuilds.cmake)
 include(CTest)
+
+# ccache
+find_program(CCACHE_FOUND ccache)
+if(CCACHE_FOUND)
+    message(STATUS "Using ccache")
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
+else()
+    message(STATUS "WARNING ccache not found")
+endif()
+
+# # valgrind
+# find_program(CTEST_MEMORYCHECK_COMMAND NAMES valgrind)
 
 include(cmake/Dependencies.cmake)
 add_subdirectory(apps)
