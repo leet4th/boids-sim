@@ -3,14 +3,14 @@
 	"tasks": [
 		{
 			"type": "cmake",
-			"label": "CMake: build all",
+			"label": "CMake: build",
 			"command": "build",
 			"targets": [
 				"all"
 			],
 			"group": "build",
 			"problemMatcher": [],
-			"detail": "build all"
+			"detail": "Build task to build all"
 		}
 	]
 }

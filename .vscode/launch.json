@@ -7,7 +7,7 @@
       {
         "name": "(gdb) boids-sim",
         "type": "cppdbg",
-        "preLaunchTask": "CMake: build all",
+        "preLaunchTask": "CMake: build",
         "request": "launch",
         "program": "${workspaceFolder}/build/apps/boids-sim",
         "stopAtEntry": false,
