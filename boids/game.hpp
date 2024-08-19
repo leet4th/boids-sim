@@ -19,13 +19,15 @@
 #include <vector>
 
 #include "BoidManager.hpp"
+#include "GridWorld.hpp"
 
 namespace BoidSim {
 
 struct GameConfig {
     std::string name;
-    unsigned int x_range;
-    unsigned int y_range;
+    unsigned int size_x;
+    unsigned int size_y;
+    float size_cell;
     unsigned int frame_limit;
     size_t num_boids;
 };
@@ -43,14 +45,22 @@ class Game {
     GameConfig config;
     sf::RenderWindow window;
     BoidManager manager;
+    GridWorld grid_world;
 
     sf::Clock clock{};
     sf::Time deltaTime{};
     int fps{};
 
+    bool is_paused{true};
+    bool show_avoid{false};
+    bool show_sight{false};
+    bool do_step{false};
+
     /// @brief Init window and game state
     /// @return
     auto init() -> bool;
+
+    auto reset() -> void;
 
     /// @brief Run single frame
     /// @return

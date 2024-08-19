@@ -31,7 +31,7 @@ struct BoidParams {
 
 class BoidManager {
    public:
-    BoidManager(size_t num_boids);
+    BoidManager(size_t num_boids, float world_size_x, float world_size_y);
 
     auto init() -> void;
     auto update(float dt_s) -> void;
@@ -45,8 +45,13 @@ class BoidManager {
         return all_vel;
     }
 
+    auto setShowAvoid(bool show_avoid) -> void;
+    auto setShowSight(bool show_sight) -> void;
+
    private:
-    size_t num_boids{};
+    size_t num_boids;
+    float world_size_x;
+    float world_size_y;
 
     std::vector<Eigen::Vector2f> all_pos;
     std::vector<Eigen::Vector2f> all_vel;

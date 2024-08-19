@@ -1,14 +1,16 @@
 #include "BoidManager.hpp"
 
-#include <fmt/format.h>
-
 namespace BoidSim {
 
 auto wrap(float val, float max_val) -> float {
     return std::fmod(val + max_val, max_val);
 }
 
-BoidManager::BoidManager(size_t in) : num_boids(in) {
+BoidManager::BoidManager(size_t num_boids_, float world_size_x_,
+                         float world_size_y_)
+    : num_boids(num_boids_),
+      world_size_x(world_size_x_),
+      world_size_y(world_size_y_) {
     all_pos.resize(num_boids);
     all_vel.resize(num_boids);
     all_params.resize(num_boids);
@@ -20,8 +22,8 @@ auto BoidManager::init() -> void {
         Eigen::Vector2f pos = Eigen::Vector2f{500, 500};
         pos.x() += 100.0 * i;
         pos.y() += 100.0 * i;
-        pos.x() = wrap(pos.x(), 1280.0);
-        pos.y() = wrap(pos.y(), 720.0);
+        pos.x() = wrap(pos.x(), world_size_x);
+        pos.y() = wrap(pos.y(), world_size_y);
 
         // velocity
         auto speed = 200.0f;
@@ -31,7 +33,7 @@ auto BoidManager::init() -> void {
 
         all_pos[i] = pos;
         all_vel[i] = vel;
-        all_params[i] = BoidParams{.avoid_dist = 150.0,
+        all_params[i] = BoidParams{.avoid_dist = 50.0,
                                    .avoid_gain = 1000.0,
                                    .sight_dist = 300.0,
                                    .align_gain = 0.5,
@@ -82,7 +84,7 @@ auto BoidManager::update(float dt_s) -> void {
 
             // avoidance
             if (dist_mag_sq < own_params.avoid_dist * own_params.avoid_dist &&
-                dist_mag_sq > 1e-6) {
+                dist_mag_sq > 0.0f) {
                 avoid_vel -= dist_to_other / (dist_mag_sq);
             }
 
@@ -105,12 +107,12 @@ auto BoidManager::update(float dt_s) -> void {
                    own_params.cohesion_gain * dist_to_avg_pos;
 
         own_vel.normalize();
-        own_vel *= 500;
+        own_vel *= 200.0f;
 
         own_pos += own_vel * dt_s;
 
-        own_pos.x() = wrap(own_pos.x(), 1280.0);
-        own_pos.y() = wrap(own_pos.y(), 720.0);
+        own_pos.x() = wrap(own_pos.x(), world_size_x);
+        own_pos.y() = wrap(own_pos.y(), world_size_y);
     }
 }
 
@@ -122,10 +124,16 @@ auto BoidManager::render(sf::RenderWindow& window) const -> void {
 
         // draw body
         sf::ConvexShape body(3);
-        body.setPoint(0, sf::Vector2f(0, 0));
-        body.setPoint(1, sf::Vector2f(-10, 5));
-        body.setPoint(2, sf::Vector2f(-10, -5));
+        float length = 20.0f;
+        float half_width = 8.0f;
+        auto cy = length / 3.0f;
+        body.setPoint(0, sf::Vector2f(length, 0));
+        body.setPoint(1, sf::Vector2f(0, half_width));
+        body.setPoint(2, sf::Vector2f(0, -half_width));
+        body.setOrigin(cy, 0.0);
         body.setFillColor(sf::Color::Blue);
+        body.setOutlineColor(sf::Color::Black);
+        body.setOutlineThickness(1.0);
 
         body.setPosition(pos.x(), pos.y());
         float heading_deg = atan2(vel.y(), vel.x()) * RAD2DEG;
@@ -155,6 +163,18 @@ auto BoidManager::render(sf::RenderWindow& window) const -> void {
             sight_circle.setOutlineColor(sf::Color::Green);
             window.draw(sight_circle);
         }
+    }
+}
+
+auto BoidManager::setShowAvoid(bool show_avoid) -> void {
+    for (auto& param : all_params) {
+        param.show_avoid = show_avoid;
+    }
+}
+
+auto BoidManager::setShowSight(bool show_sight) -> void {
+    for (auto& param : all_params) {
+        param.show_sight = show_sight;
     }
 }
 

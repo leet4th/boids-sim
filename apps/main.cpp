@@ -6,10 +6,11 @@ using BoidSim::GameConfig;
 
 int main(int argc, char *argv[]) {
     Game game{GameConfig{.name = "boids",
-                         .x_range = 1280,
-                         .y_range = 720,
+                         .size_x = 1920,
+                         .size_y = 1080,
+                         .size_cell = 100,
                          .frame_limit = 60,
-                         .num_boids = 70}};
+                         .num_boids = 100}};
 
     game.run();
 
