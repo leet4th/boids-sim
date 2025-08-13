@@ -1,5 +1,7 @@
 # boids-sim
 
+![boids in action](boids-in-action.png)
+
 ## Build
 
 ```bash
